@@ -47,18 +47,18 @@ footer{
   font-size: 2rem;
 }
 
-.carousel{
-  position: absolute !important;
-  height: 80% !important;
-}
-.caroudiv{
-  max-height: 80% !important;
-}
-.carousel-dark .carousel-caption {
-  color: #EEEEEE;
-  height: 50%;
-  margin-bottom: 10%;
-}
 .dolar{
   background-color: #141F26;
+}
+
+.ej{
+  height: 100%;
+  background-color: #1D293D;
+  position: absolute;
+  color: #EEEEEE;
+}
+.divdolar{
+  padding-left: 210px;
+  min-width: -webkit-fill-available;
+  color: #EEEEEE;
 }
