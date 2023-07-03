@@ -1,23 +1,136 @@
+var token;
+
+
+window.addEventListener('load', function() {
+    //AL CARGAR LA PAGINA SE GUARDA EL TOKEN
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+    "identifier": "api-user@example.com",
+    "password": "123456"
+    });
+
+    var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+    };
+
+    fetch("https://gestionweb.frlp.utn.edu.ar/api/auth/local", requestOptions)
+    .then(response => response.json())
+    .then(result => {
+        token = result.jwt;
+    })
+    .catch(error => console.log('error', error));
+});
+
 
 function mostrar(e){
-    console.log(e)
+    for (var datos of e) 
+    {
+    console.log(datos);
+    }
+}
+
+function uploadMoneda(e){
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", "Bearer "+token);
+
+    var raw = JSON.stringify({
+    "data": {
+        "idMoneda": e.monedas_id,
+        "nombre": 'dolar',
+        "compra": parseInt(e.compra),
+        "venta": parseInt(e.venta),
+        "fecha": e.fecha
+    }
+    });
+
+    var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+    };
+
+    fetch("https://gestionweb.frlp.utn.edu.ar/api/g1-monedas", requestOptions)
+    .then(response => response.json())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+}
+
+function deleteMoneda(id){
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer "+token);
+
+    var requestOptions = {
+    method: 'DELETE',
+    headers: myHeaders,
+    redirect: 'follow'
+    };
+
+    fetch("https://gestionweb.frlp.utn.edu.ar/api/g1-monedas/"+id, requestOptions)
+    .then(response => response.json())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+}
+
+function deleteAllMonedas(){
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer "+token);
+
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+    fetch("https://gestionweb.frlp.utn.edu.ar/api/g1-monedas", requestOptions)
+    .then(response => response.json())
+    .then(result => {
+        for (var datos of result.data) {
+            deleteMoneda(datos.id);
+        }
+    })
+    .catch(error => console.log('error', error));
+}
+
+function getDatos(){
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer "+token);
+
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+    fetch("https://gestionweb.frlp.utn.edu.ar/api/g1-monedas", requestOptions)
+    .then(response => response.json())
+    .then(result => {
+        for (var datos of result.data) {
+            console.log(datos);
+        }
+    })
+    .catch(error => console.log('error', error));
 }
 
 
-
 function cargar(){
-
-    var requestOptions = {
+    /*var requestOptions = {
         method: 'GET',
         redirect: 'follow'
         };
         
         fetch("https://dolarsi.com/adm/api/estadisticas/?type=getMonedas", requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
+            .then(response => response.json())
+            .then(result => mostrar(result))
+            .catch(error => console.log('error', error));*/
 
-    /*let myHeaders = new Headers();
+    let myHeaders = new Headers(); //OBTIENEN VALORES DEL DOLAR
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     let urlencoded = new URLSearchParams();
@@ -31,7 +144,12 @@ function cargar(){
         body: urlencoded,
         })
     .then(response => response.json())
-    .then(result => 
-        mostrar(result))
-    .catch(error => console.log('error', error));*/
+    .then(result => {
+        for (var datos of result) 
+        {
+            console.log(datos);
+            uploadMoneda(datos);
+        }
+    })
+    .catch(error => console.log('error', error));
 }
