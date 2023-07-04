@@ -1,50 +1,61 @@
-* {
-  margin: 0;
-  padding: 0;
+/* Borre la regla para *, no deberian aplicarse reglas globalmente, tambien varios !important, una manera
+de darse cuenta que el CSS esta bien estructurado es si funciona como debe sin los !important */
+
+body {
+  height: 100vh;
+  background-color: #141F26;
+  display: flex;
+  flex-direction: column;
 }
-html, body {
-  min-height: 100%;
-  position: relative;
-  background-color: #141F26 !important;
-  height: -webkit-fill-available;
-}  
-.content {
-  padding-bottom: 40px;
-}
-/*
-html {
-  min-height: 100%;
-  position: relative;
-  background-color: #526D82;
-}*/
+
 header{
   background-color: #141F26;
+  display: flex;
+  align-items: center;
 }
 
-footer{
-  position: absolute;
-  bottom: 0 !important;
+header a .logo{
+  width: 60px;
+  margin-left: 1em;
+  padding: 0.5em 0;
+}
+
+header h1 {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+footer {
   width: 100%;
   height: 40px;
-  background-color: #141F26 !important;
-}
-
-.container-fluid{
   background-color: #141F26;
+  margin-top: auto;
+  color: rgba(255, 255, 255, 0.804);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
-.logo{
-  height: 80px;
+.content {
+  display:flex;
+  flex:1;
+}
+
+#sidebar {
+  display: flex;
+  flex-direction: column;
+  background-color: #141F26;
+  width: 200px;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .texto-footer{
-  padding-top: 5px;
   color: rgba(255, 255, 255, 0.804);
-}
-
-.titulo{
-  color: #EEEEEE;
-  font-size: 2rem;
 }
 
 .dolar{
@@ -55,10 +66,5 @@ footer{
   height: 100%;
   background-color: #1D293D;
   position: absolute;
-  color: #EEEEEE;
-}
-.divdolar{
-  padding-left: 210px;
-  min-width: -webkit-fill-available;
   color: #EEEEEE;
 }
