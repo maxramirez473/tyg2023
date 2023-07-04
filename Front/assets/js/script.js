@@ -1,17 +1,4 @@
 var token;
-var inicio;
-var fin;
-
-var today = new Date();
-var dd = String(today.getDate()).padStart(2, '0');
-var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-var mmAtras = String(today.getMonth()).padStart(2, '0'); //January is 0!
-var yyyy = String(today.getFullYear());
-
-
-inicio=dd+mm+yyyy;
-fin=dd+mmAtras+yyyy; 
-
 
 window.addEventListener('load', function() {
     //AL CARGAR LA PAGINA SE GUARDA EL TOKEN
@@ -141,14 +128,25 @@ function cargar(){
             .then(response => response.json())
             .then(result => mostrar(result))
             .catch(error => console.log('error', error));*/
+    
+    let today = new Date();
+    
+    let dd = String(today.getDate()).padStart(2, '0');
+    
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let mmAtras = String(today.getMonth()).padStart(2, '0'); //January is 0!
+    let yyyy = String(today.getFullYear());
+
+    let inicio=dd+mmAtras+yyyy; 
+    let fin=dd+mm+yyyy;
 
     let myHeaders = new Headers(); //OBTIENEN VALORES DEL DOLAR
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     let urlencoded = new URLSearchParams();
     urlencoded.append("id", "1"); //DOLAR
-    urlencoded.append("fechaInicio", "01062023");
-    urlencoded.append("fechaFin", "03072023");
+    urlencoded.append("fechaInicio", inicio);
+    urlencoded.append("fechaFin", fin);
 
     fetch("https://dolarsi.com/adm/api/estadisticas/?type=getHistorico", {
         method: 'POST',
@@ -157,7 +155,8 @@ function cargar(){
         })
     .then(response => response.json())
     .then(result => {
-        //console.log(result);
+        console.log(result);
+        return;
         for (var datos of result) 
         {
             uploadMoneda(datos);
