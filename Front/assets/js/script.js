@@ -25,6 +25,14 @@ window.addEventListener('load', function() {
     .catch(error => console.log('error', error));
 });
 
+function reloadSpinner(){
+    $('#spinnerLoader').removeClass('d-none');
+
+    setTimeout(() => {
+        $('#spinnerLoader').addClass('d-none');
+    },7000)
+}
+
 
 function mostrar(e){
     for (var datos of e) 
@@ -119,6 +127,7 @@ function getDatos(){
 
 
 function cargar(){
+    reloadSpinner()
     let today = new Date();
     
     let dd = String(today.getDate()).padStart(2, '0');
