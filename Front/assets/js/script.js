@@ -33,7 +33,7 @@ function mostrar(e){
     }
 }
 
-function uploadMoneda(e){
+function uploadMoneda(e, nombre){
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Authorization", "Bearer "+token);
@@ -41,7 +41,7 @@ function uploadMoneda(e){
     var raw = JSON.stringify({
     "data": {
         "idMoneda": e.monedas_id,
-        "nombre": 'dolar',
+        "nombre": nombre,
         "compra": parseInt(e.compra),
         "venta": parseInt(e.venta),
         "fecha": e.fecha
@@ -119,16 +119,6 @@ function getDatos(){
 
 
 function cargar(){
-    /*var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-        };
-        
-        fetch("https://dolarsi.com/adm/api/estadisticas/?type=getMonedas", requestOptions)
-            .then(response => response.json())
-            .then(result => mostrar(result))
-            .catch(error => console.log('error', error));*/
-    
     let today = new Date();
     
     let dd = String(today.getDate()).padStart(2, '0');
@@ -143,24 +133,119 @@ function cargar(){
     let myHeaders = new Headers(); //OBTIENEN VALORES DEL DOLAR
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-    let urlencoded = new URLSearchParams();
-    urlencoded.append("id", "1"); //DOLAR
-    urlencoded.append("fechaInicio", inicio);
-    urlencoded.append("fechaFin", fin);
+    let dolar = new URLSearchParams();
+    dolar.append("id", "1"); //DOLAR
+    dolar.append("fechaInicio", inicio);
+    dolar.append("fechaFin", fin);
 
     fetch("https://dolarsi.com/adm/api/estadisticas/?type=getHistorico", {
         method: 'POST',
         headers: myHeaders,
-        body: urlencoded,
+        body: dolar,
         })
     .then(response => response.json())
     .then(result => {
         console.log(result);
-        return;
         for (var datos of result) 
         {
-            uploadMoneda(datos);
+            uploadMoneda(datos, 'Dolar Oficial');
         }
     })
     .catch(error => console.log('error', error));
+
+    /*  DOLAR */
+
+    setTimeout(() => {
+        let blue = new URLSearchParams();
+        blue.append("id", "5"); //blue
+        blue.append("fechaInicio", inicio);
+        blue.append("fechaFin", fin);
+
+        fetch("https://dolarsi.com/adm/api/estadisticas/?type=getHistorico", {
+            method: 'POST',
+            headers: myHeaders,
+            body: blue,
+            })
+        .then(response => response.json())
+        .then(result => {
+            console.log(result);
+            for (var datos of result) 
+            {
+                uploadMoneda(datos, 'Dolar Blue');
+            }
+        })
+        .catch(error => console.log('error', error));
+    }, "1000");
+
+    /* DOLAR BLUE */
+
+    setTimeout(() => {
+        let euro = new URLSearchParams();
+        euro.append("id", "2"); //euro
+        euro.append("fechaInicio", inicio);
+        euro.append("fechaFin", fin);
+
+        fetch("https://dolarsi.com/adm/api/estadisticas/?type=getHistorico", {
+            method: 'POST',
+            headers: myHeaders,
+            body: euro,
+            })
+        .then(response => response.json())
+        .then(result => {
+            console.log(result);
+            for (var datos of result) 
+            {
+                uploadMoneda(datos, 'Euro');
+            }
+        })
+        .catch(error => console.log('error', error));
+    }, "2000");
+
+    /* EURO */
+
+    setTimeout(() => {
+        let libra = new URLSearchParams();
+        libra.append("id", "12"); //libra
+        libra.append("fechaInicio", inicio);
+        libra.append("fechaFin", fin);
+
+        fetch("https://dolarsi.com/adm/api/estadisticas/?type=getHistorico", {
+            method: 'POST',
+            headers: myHeaders,
+            body: libra,
+            })
+        .then(response => response.json())
+        .then(result => {
+            console.log(result);
+            for (var datos of result) 
+            {
+                uploadMoneda(datos, 'Libra');
+            }
+        })
+        .catch(error => console.log('error', error));
+    }, "3000");
+
+    /* LIBRA */
+
+    setTimeout(() => {
+        let real = new URLSearchParams();
+        real.append("id", "3"); //real
+        real.append("fechaInicio", inicio);
+        real.append("fechaFin", fin);
+
+        fetch("https://dolarsi.com/adm/api/estadisticas/?type=getHistorico", {
+            method: 'POST',
+            headers: myHeaders,
+            body: real,
+            })
+        .then(response => response.json())
+        .then(result => {
+            console.log(result);
+            for (var datos of result) 
+            {
+                uploadMoneda(datos, 'Real');
+            }
+        })
+        .catch(error => console.log('error', error));
+    }, "4000");
 }
