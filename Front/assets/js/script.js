@@ -33,6 +33,138 @@ function reloadSpinner(){
     },7000)
 }
 
+function getAllMonedas(){
+    var oficial;
+    var blue;
+    var euro;
+    var real;
+    var libra;
+
+    var settings = {
+        "url": "https://gestionweb.frlp.utn.edu.ar/api/g1-monedas?filters[nombre][$eq]=Libra&pagination[pageSize]=100",
+        "method": "GET",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer "+token
+        },
+        "data": JSON.stringify({
+            "meta": {
+            "pagination": {
+                "page": 1,
+                "pageSize": 1000,
+                "pageCount": 10,
+                "total": 231
+            }
+            }
+        }),
+    };
+    $.ajax(settings).done(function (response) {
+        libra = response.data;
+    });
+
+    var settings = {
+        "url": "https://gestionweb.frlp.utn.edu.ar/api/g1-monedas?filters[nombre][$eq]=Dolar Blue&pagination[pageSize]=100",
+        "method": "GET",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer "+token
+        },
+        "data": JSON.stringify({
+            "meta": {
+            "pagination": {
+                "page": 1,
+                "pageSize": 1000,
+                "pageCount": 10,
+                "total": 231
+            }
+            }
+        }),
+    };
+    $.ajax(settings).done(function (response) {
+        blue = response.data;
+    });
+
+    var settings = {
+        "url": "https://gestionweb.frlp.utn.edu.ar/api/g1-monedas?filters[nombre][$eq]=Dolar Oficial&pagination[pageSize]=100",
+        "method": "GET",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer "+token
+        },
+        "data": JSON.stringify({
+            "meta": {
+            "pagination": {
+                "page": 1,
+                "pageSize": 1000,
+                "pageCount": 10,
+                "total": 231
+            }
+            }
+        }),
+    };
+    $.ajax(settings).done(function (response) {
+        oficial = response.data;
+    });
+
+    var settings = {
+        "url": "https://gestionweb.frlp.utn.edu.ar/api/g1-monedas?filters[nombre][$eq]=Real&pagination[pageSize]=100",
+        "method": "GET",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer "+token
+        },
+        "data": JSON.stringify({
+            "meta": {
+            "pagination": {
+                "page": 1,
+                "pageSize": 1000,
+                "pageCount": 10,
+                "total": 231
+            }
+            }
+        }),
+    };
+    $.ajax(settings).done(function (response) {
+        real = response.data;
+    });
+
+    var settings = {
+        "url": "https://gestionweb.frlp.utn.edu.ar/api/g1-monedas?filters[nombre][$eq]=Euro&pagination[pageSize]=100",
+        "method": "GET",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer "+token
+        },
+        "data": JSON.stringify({
+            "meta": {
+            "pagination": {
+                "page": 1,
+                "pageSize": 1000,
+                "pageCount": 10,
+                "total": 231
+            }
+            }
+        }),
+    };
+    $.ajax(settings).done(function (response) {
+        euro= response.data;
+    });
+
+    setTimeout(() => {
+        console.log(blue);
+        console.log(oficial);
+        console.log(real);
+        console.log(libra);
+        console.log(euro);
+        /* ACA SE PROGRAMA TODO LO QUE SE QUIERA SOBRE OBTENER DATOS */
+    },3000)
+}
+
 
 function mostrar(e){
     for (var datos of e) 
@@ -127,6 +259,7 @@ function getDatos(){
 
 
 function cargar(){
+    /* TRAE TODAS LAS MONEDAS DESDE LA API Y LAS CARGA A STRAPI */
     reloadSpinner()
     let today = new Date();
     
