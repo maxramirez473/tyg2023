@@ -68,3 +68,10 @@ main {
   position: absolute;
   color: #EEEEEE;
 }
+
+#curve_chart {
+  width: 80%;
+  align-self: center;
+  margin-top: 1.5em;
+  height: 80%;
+}

@@ -14,25 +14,25 @@
     <link rel="stylesheet" href="assets/css/style.css" />
 
     <style>
-        .overlay {
-            background-color: rgba(231, 226, 226, 0.822);
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: 1000;
-            opacity: 0.5;
-            filter: alpha(opacity=50);
-            display: flex;
-            align-items: center;
-            top: 0;
-        }
-        .spinner-border{
-            width: 6rem;
-            height: 6rem;
-            z-index: 20;
-            display: flex;
-            margin: 0 auto;
-        }
+      .overlay {
+        background-color: rgba(231, 226, 226, 0.822);
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        opacity: 0.5;
+        filter: alpha(opacity=50);
+        display: flex;
+        align-items: center;
+        top: 0;
+      }
+      .spinner-border {
+        width: 6rem;
+        height: 6rem;
+        z-index: 20;
+        display: flex;
+        margin: 0 auto;
+      }
     </style>
   </head>
 
@@ -44,9 +44,8 @@
       <h1 class="text-light fs-2">TP Nº2 - Grupo 1</h1>
     </header>
 
-    <div class="overlay d-none" id="spinnerLoader">  
-      <div class="spinner-border text-success">
-      </div>
+    <div class="overlay d-none" id="spinnerLoader">
+      <div class="spinner-border text-success"></div>
     </div>
 
     <div class="content">
@@ -71,13 +70,21 @@
       </section>
 
       <main>
-        <h1 class="text-center text-light mt-3">Cotización del dolar hoy</h1>
+        <h1 class="text-center text-light mt-3">
+          Evoluci&oacute;n de las monedas en el ultimo mes
+        </h1>
+        <div id="curve_chart" class="align-self-center"></div>
       </main>
     </div>
 
     <footer class="border-top">
       <p class="m-0">Tecnología y gestión web | 2023</p>
     </footer>
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
+
     <script
       src="https://code.jquery.com/jquery-3.6.4.min.js"
       integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
